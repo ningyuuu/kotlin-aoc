@@ -27,13 +27,14 @@ val spellList =
 fun getFirstLastNumberSpelled(input: String): Int {
   val inputSpelled =
       input
-          .mapIndexedNotNull { index, c ->
+          .mapIndexed { index, c ->
             if (c.isDigit()) c
             else
                 input.possibleWordsAt(index).firstNotNullOfOrNull { candidate ->
                   spellList[candidate]
                 }
           }
+          .filterNotNull()
           .joinToString()
   val first = inputSpelled.first { it.isDigit() }
   val second = inputSpelled.last { it.isDigit() }
