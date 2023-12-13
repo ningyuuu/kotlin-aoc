@@ -98,35 +98,35 @@ fun getValuesForGear(gear: GearCoords, numbers: List<NumberCoords>): Int {
   return 0
 }
 
+fun part1(input: List<String>): Int {
+  val inputCharMatrix = buildInputCharMatrix(input)
+  val numCoordList = buildNumCoordList(inputCharMatrix)
+
+  var total = 0
+  for (nc in numCoordList) {
+    if (isNumCoordLegal(nc, inputCharMatrix)) {
+      total += nc.num
+    }
+  }
+
+  return total
+}
+
+fun part2(input: List<String>): Int {
+
+  val inputCharMatrix = buildInputCharMatrix(input)
+  val numCoordList = buildNumCoordList(inputCharMatrix)
+  val gearList = buildGearList(inputCharMatrix)
+
+  var total = 0
+  for (g in gearList) {
+    total += getValuesForGear(g, numCoordList)
+  }
+
+  return total
+}
+
 fun main() {
-  fun part1(input: List<String>): Int {
-    val inputCharMatrix = buildInputCharMatrix(input)
-    val numCoordList = buildNumCoordList(inputCharMatrix)
-
-    var total = 0
-    for (nc in numCoordList) {
-      if (isNumCoordLegal(nc, inputCharMatrix)) {
-        total += nc.num
-      }
-    }
-
-    return total
-  }
-
-  fun part2(input: List<String>): Int {
-
-    val inputCharMatrix = buildInputCharMatrix(input)
-    val numCoordList = buildNumCoordList(inputCharMatrix)
-    val gearList = buildGearList(inputCharMatrix)
-
-    var total = 0
-    for (g in gearList) {
-      total += getValuesForGear(g, numCoordList)
-    }
-
-    return total
-  }
-
   val input = readInput("Day03")
   part1(input).println()
   part2(input).println()

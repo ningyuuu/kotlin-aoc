@@ -87,23 +87,23 @@ fun getFirstLastNumberOrSpell(input: String): Int {
   return first * 10 + second
 }
 
+fun part1(input: List<String>): Int {
+  var total = 0
+  for (line in input) {
+    total += getFirstLastNumber(line)
+  }
+  return total
+}
+
+fun part2(input: List<String>): Int {
+  var total = 0
+  for (line in input) {
+    total += getFirstLastNumberOrSpell(line)
+  }
+  return total
+}
+
 fun main() {
-  fun part1(input: List<String>): Int {
-    var total = 0
-    for (line in input) {
-      total += getFirstLastNumber(line)
-    }
-    return total
-  }
-
-  fun part2(input: List<String>): Int {
-    var total = 0
-    for (line in input) {
-      total += getFirstLastNumberOrSpell(line)
-    }
-    return total
-  }
-
   val input = readInput("Day01")
   part1(input).println()
   part2(input).println()

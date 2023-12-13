@@ -69,23 +69,23 @@ fun getCubesPower(line: String): Int {
   return redPower * greenPower * bluePower
 }
 
+fun part1(input: List<String>): Int {
+  var total = 0
+  for (line in input) {
+    total += getGameIdIfLegalCubes(line)
+  }
+  return total
+}
+
+fun part2(input: List<String>): Int {
+  var total = 0
+  for (line in input) {
+    total += getCubesPower(line)
+  }
+  return total
+}
+
 fun main() {
-  fun part1(input: List<String>): Int {
-    var total = 0
-    for (line in input) {
-      total += getGameIdIfLegalCubes(line)
-    }
-    return total
-  }
-
-  fun part2(input: List<String>): Int {
-    var total = 0
-    for (line in input) {
-      total += getCubesPower(line)
-    }
-    return total
-  }
-
   val input = readInput("Day02")
   part1(input).println()
   part2(input).println()
