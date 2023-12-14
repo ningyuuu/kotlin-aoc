@@ -1,7 +1,10 @@
 package day05
 
-// import kotlinx.coroutine.runBlocking
 import java.lang.Long.min
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.runBlocking
 import println
 import readInput
 
@@ -137,25 +140,29 @@ fun part2(input: List<String>): Long {
     i += 2
   }
 
-  //  runBlocking {
-  val localMins =
-      seeds.map {
-        println("running " + it.first.toString() + " to " + (it.first + it.second - 1).toString())
-        var localMin = 99999999999999
-        for (seed in it.first ..< it.first + it.second) {
-          val soil = data.seedToSoil.convert(seed)
-          val fert = data.soilToFert.convert(soil)
-          val water = data.fertToWater.convert(fert)
-          val light = data.waterToLight.convert(water)
-          val temp = data.lightToTemp.convert(light)
-          val humid = data.tempToHumid.convert(temp)
-          val loc = data.humidToLoc.convert(humid)
-          localMin = min(localMin, loc)
-        }
+  val localMins = runBlocking {
+    val deferred =
+        seeds.map { num ->
+          async(Dispatchers.Default) {
+            "running for ${num.first} for ${num.second}".println()
+            var localMin = 99999999999999
+            for (s in num.first ..< num.first + num.second) {
+              val soil = data.seedToSoil.convert(s)
+              val fert = data.soilToFert.convert(soil)
+              val water = data.fertToWater.convert(fert)
+              val light = data.waterToLight.convert(water)
+              val temp = data.lightToTemp.convert(light)
+              val humid = data.tempToHumid.convert(temp)
+              val loc = data.humidToLoc.convert(humid)
+              localMin = min(localMin, loc)
+            }
 
-        localMin
-      }
-  //  }
+            "running done for ${num.first} (size ${num.second})".println()
+            localMin
+          }
+        }
+    deferred.awaitAll()
+  }
 
   return localMins.min()
 }
