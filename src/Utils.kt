@@ -14,3 +14,5 @@ fun String.md5() =
 
 /** The cleaner shorthand for printing output. */
 fun Any?.println() = println(this)
+
+data class Coord(val x: Int, val y: Int)

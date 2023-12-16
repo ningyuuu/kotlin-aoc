@@ -1,10 +1,9 @@
 package day10
 
+import Coord
 import kotlin.system.exitProcess
 import println
 import readInput
-
-data class Coord(val x: Int, val y: Int)
 
 fun findS(map: List<String>): Coord {
   for (i in map.indices) {
