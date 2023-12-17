@@ -16,3 +16,7 @@ fun String.md5() =
 fun Any?.println() = println(this)
 
 data class Coord(val x: Int, val y: Int)
+
+open class Grid(input: List<String>) {
+  val data = input.map { it.toCharArray().toList() }
+}
